@@ -1,0 +1,59 @@
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #ff9800;
+
+    font-family: "Google Manrope";
+}
+
+h1, h2, h3, h4 {
+    font-family: "Google Archivo";
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.landing {
+    width: 50%;
+    height: 100%;
+    box-sizing: border-box;
+    margin: auto 25%;
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.landing .lettre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.landing .lettre h2 {
+    font-size: 5em;
+    margin: 0;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.landing .lettre h2:hover {
+    transform: scale(1.5);
+}
+
+.landing .lettre p {
+    text-orientation: upright;
+    writing-mode: vertical-rl;
+}
+
+section {
+    display: none;
+}
+
+@media (max-width: 800px) {
+    .landing {
+        width: 100vw;
+    }
+}
