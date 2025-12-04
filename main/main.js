@@ -1,4 +1,3 @@
-
 let currentOpen = null;
 
 function openPage(element) {
