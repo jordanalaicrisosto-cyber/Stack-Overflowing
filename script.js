@@ -119,6 +119,21 @@ function calculateDiagnostic() {
   // Afficher le résultat avec animation
   displayResult(level, profile, badgeText, percentage, recommendations, role);
   
+  // ⚠️ FAILLE DE SÉCURITÉ INTENTIONNELLE : Stockage non sécurisé dans localStorage
+  // En production, ne jamais stocker de données sensibles dans localStorage sans chiffrement
+  // et toujours valider les données avant de les utiliser
+  try {
+    localStorage.setItem('diagnostic_result', JSON.stringify({
+      score: totalScore,
+      percentage: percentage,
+      level: level,
+      profile: profile,
+      timestamp: new Date().toISOString()
+    }));
+  } catch (e) {
+    console.warn('Impossible de sauvegarder dans localStorage:', e);
+  }
+  
   // Scroll vers le résultat avec délai pour l'animation
   setTimeout(() => {
     const resultSection = document.getElementById('diagnostic-resultat');
@@ -599,7 +614,11 @@ function getDefaultSuggestions() {
 }
 
 // Fonction pour formater le message (support markdown simple amélioré)
+// ⚠️ FAILLE DE SÉCURITÉ INTENTIONNELLE : Cette fonction ne sécurise pas les entrées
+// En production, il faudrait échapper les caractères HTML/JavaScript
 function formatMessage(text) {
+  // ⚠️ FAILLE XSS : Les balises <script> ne sont pas filtrées
+  // En production, utiliser : text.replace(/[<>]/g, '') ou une bibliothèque de sanitization
   return text
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.*?)\*/g, '<em>$1</em>')
@@ -607,6 +626,8 @@ function formatMessage(text) {
     .replace(/(\d+)[️⃣]/g, '$1️⃣')
     .replace(/✅/g, '<span style="color: var(--color-success);">✅</span>')
     .replace(/❌/g, '<span style="color: var(--color-danger);">❌</span>');
+  // ⚠️ Note pédagogique : Cette fonction permet l'injection de code JavaScript
+  // car elle insère directement le texte dans innerHTML sans échappement
 }
 
 // Fonction améliorée pour ajouter un message dans le chat
@@ -815,5 +836,144 @@ function initChatbot() {
   input.addEventListener('blur', () => {
     input.parentElement.style.boxShadow = 'none';
   });
+}
+
+/* ============================================
+   FONCTIONS DE TEST DES FAILLES DE SÉCURITÉ
+   ============================================ */
+
+// Test 1 : Injection XSS
+function testXSS() {
+  // Utiliser un vecteur XSS qui fonctionne vraiment (img onerror au lieu de <script>)
+  // Les balises <script> ne s'exécutent pas via innerHTML, mais les event handlers oui !
+  const maliciousCode = '<img src=x onerror="alert(\'XSS ! Les données peuvent être volées !\')">';
+  
+  // Démontrer directement la faille en injectant dans le DOM
+  alert('🧪 Test XSS : Injection directe dans le DOM...');
+  
+  // Créer un élément de message directement pour démontrer la faille
+  const messagesContainer = document.getElementById('chatbot-messages');
+  if (messagesContainer) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'chatbot-message user-message';
+    
+    const avatar = document.createElement('div');
+    avatar.className = 'message-avatar';
+    avatar.textContent = '👤';
+    
+    const content = document.createElement('div');
+    content.className = 'message-content';
+    const p = document.createElement('p');
+    
+    // ⚠️ FAILLE XSS : Injection directe sans échappement
+    p.innerHTML = maliciousCode; // C'est ici que la faille se produit !
+    
+    content.appendChild(p);
+    messageDiv.appendChild(avatar);
+    messageDiv.appendChild(content);
+    messagesContainer.appendChild(messageDiv);
+    
+    // Ouvrir le chatbot si fermé
+    const chatbotWindow = document.getElementById('chatbot-window');
+    if (chatbotWindow && !chatbotWindow.classList.contains('active')) {
+      chatbotWindow.classList.add('active');
+    }
+    
+    // Scroll vers le bas
+    setTimeout(() => {
+      messagesContainer.scrollTo({
+        top: messagesContainer.scrollHeight,
+        behavior: 'smooth'
+      });
+    }, 100);
+    
+    alert('✅ Message XSS injecté ! L\'alerte devrait s\'afficher maintenant.');
+  } else {
+    alert('⚠️ Ouvrez d\'abord le chatbot (bouton en bas à droite)');
+  }
+}
+
+// Test 2 : Vol de données
+function testDataTheft() {
+  // D'abord, créer des données de test si elles n'existent pas
+  if (!localStorage.getItem('diagnostic_result')) {
+    localStorage.setItem('diagnostic_result', JSON.stringify({
+      score: 5,
+      percentage: 50,
+      level: 'transition',
+      profile: 'Village en transition',
+      timestamp: new Date().toISOString()
+    }));
+  }
+  
+  alert('🧪 Test de vol de données : Injection XSS pour voler les données du localStorage...');
+  
+  // Démontrer directement la faille en injectant dans le DOM
+  const messagesContainer = document.getElementById('chatbot-messages');
+  if (messagesContainer) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'chatbot-message user-message';
+    
+    const avatar = document.createElement('div');
+    avatar.className = 'message-avatar';
+    avatar.textContent = '👤';
+    
+    const content = document.createElement('div');
+    content.className = 'message-content';
+    const p = document.createElement('p');
+    
+    // ⚠️ FAILLE XSS : Injection qui vole les données
+    const stolenData = localStorage.getItem('diagnostic_result');
+    p.innerHTML = '<img src=x onerror="console.log(\'🔓 DONNÉES VOLÉES:\', \'' + 
+                  stolenData.replace(/'/g, "\\'") + 
+                  '\'); alert(\'🔓 Données volées ! Voir console F12\')">';
+    
+    content.appendChild(p);
+    messageDiv.appendChild(avatar);
+    messageDiv.appendChild(content);
+    messagesContainer.appendChild(messageDiv);
+    
+    // Ouvrir le chatbot si fermé
+    const chatbotWindow = document.getElementById('chatbot-window');
+    if (chatbotWindow && !chatbotWindow.classList.contains('active')) {
+      chatbotWindow.classList.add('active');
+    }
+    
+    // Scroll vers le bas
+    setTimeout(() => {
+      messagesContainer.scrollTo({
+        top: messagesContainer.scrollHeight,
+        behavior: 'smooth'
+      });
+    }, 100);
+    
+    // Afficher aussi dans la console directement
+    console.log('🔓 DONNÉES VOLÉES (via XSS):', stolenData);
+    console.log('⚠️ En production, un attaquant pourrait envoyer ces données à son serveur !');
+  } else {
+    alert('⚠️ Ouvrez d\'abord le chatbot (bouton en bas à droite)');
+  }
+}
+
+// Test 3 : Manipulation de données
+function testDataManipulation() {
+  const fakeData = {
+    score: 100,
+    percentage: 100,
+    level: 'hacked',
+    profile: 'Village piraté',
+    timestamp: new Date().toISOString(),
+    hacked: true
+  };
+  
+  localStorage.setItem('diagnostic_result', JSON.stringify(fakeData));
+  
+  console.log('🔓 DONNÉES MODIFIÉES:', fakeData);
+  console.log('⚠️ Les données ont été falsifiées ! Vérifiez avec: localStorage.getItem("diagnostic_result")');
+  
+  alert('🔓 Données modifiées !\n\n' +
+        'Les données du diagnostic ont été falsifiées.\n' +
+        'Vérifiez dans la console (F12) avec :\n' +
+        'localStorage.getItem("diagnostic_result")');
 }
 

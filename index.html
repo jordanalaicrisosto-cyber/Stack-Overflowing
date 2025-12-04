@@ -33,6 +33,8 @@
           <li><a href="#diagnostic">📊 Diagnostic NIRD</a></li>
           <li><a href="#fiches-actions">📋 Fiches-actions</a></li>
           <li><a href="#ressources">📚 Ressources</a></li>
+          <li><a href="#jeu">🎮 Mini-Jeu N(I)RD</a></li>
+          <li><a href="#securite">🔒 Sécurité & Faille</a></li>
         </ul>
       </nav>
     </header>
@@ -453,6 +455,199 @@
             <li>le site officiel de la démarche <strong>NIRD</strong> ;</li>
             <li>les sites des principaux logiciels libres utilisés dans l’établissement.</li>
           </ul>
+        </div>
+      </section>
+
+      <!-- SECTION SÉCURITÉ ET FAILLE -->
+      <section id="securite" class="section security" aria-labelledby="titre-securite">
+        <div class="section-header">
+          <h2 id="titre-securite">🔒 Sécurité Numérique : Apprendre en Pratiquant</h2>
+          <p>
+            Cette section présente une <strong>faille de sécurité volontaire</strong> à des fins pédagogiques.
+            L'objectif est de comprendre comment les failles fonctionnent pour mieux s'en protéger.
+          </p>
+          <div style="margin-top: 2rem;">
+            <button onclick="document.getElementById('securite').scrollIntoView({behavior: 'smooth'})" class="btn primary">
+              🎯 Tester les failles maintenant
+            </button>
+          </div>
+        </div>
+
+        <div class="security-warning">
+          <h3>⚠️ Avertissement</h3>
+          <p>
+            Cette faille est <strong>intentionnelle et contrôlée</strong>. Elle ne doit <strong>JAMAIS</strong> être reproduite
+            sur un site en production. Cette démonstration est uniquement à des fins éducatives pour comprendre
+            les risques de sécurité dans le développement web.
+          </p>
+        </div>
+
+        <div class="security-content">
+          <article class="security-card">
+            <h3>🎯 La Faille : XSS (Cross-Site Scripting) + Manipulation de Données</h3>
+            <p class="security-meta">Type : Injection de code côté client | Niveau : Moyen | Impact : Élevé</p>
+            
+            <div class="security-details">
+              <h4>📖 Fonctionnement de la faille</h4>
+              <p>
+                Cette application présente <strong>deux failles combinées</strong> :
+              </p>
+              <ol>
+                <li>
+                  <strong>XSS (Cross-Site Scripting) dans le chatbot</strong> : 
+                  Les messages du chatbot ne sont pas correctement échappés, permettant l'injection de code JavaScript.
+                </li>
+                <li>
+                  <strong>Manipulation de données du diagnostic</strong> : 
+                  Les résultats du diagnostic sont stockés dans le localStorage sans validation, permettant leur modification.
+                </li>
+              </ol>
+              
+              <h4>🔍 Comment la reproduire</h4>
+              
+              <div class="exploit-demo">
+                <h5>Test 1 : Injection XSS dans le chatbot</h5>
+                <p>Dans le chatbot (bouton en bas à droite), tapez ce message :</p>
+                <code class="exploit-code">&lt;img src=x onerror="alert('XSS ! Les données peuvent être volées !')"&gt;</code>
+                <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--color-text-light);">
+                  <em>Note : Les balises &lt;script&gt; ne fonctionnent pas via innerHTML, mais les event handlers comme onerror fonctionnent !</em>
+                </p>
+                <button onclick="testXSS()" class="btn primary" style="margin-top: 1rem;">
+                  🧪 Tester cette faille XSS
+                </button>
+                <p class="exploit-note">
+                  ⚠️ <strong>Résultat attendu</strong> : Une alerte s'affiche, démontrant que du code JavaScript peut être exécuté.
+                </p>
+              </div>
+
+              <div class="exploit-demo">
+                <h5>Test 2 : Vol de données via XSS</h5>
+                <p>Essayez cette injection plus malveillante dans le chatbot :</p>
+                <code class="exploit-code">&lt;img src=x onerror="console.log('Données volées:', localStorage.getItem('diagnostic_result'))"&gt;</code>
+                <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--color-text-light);">
+                  <em>Note : Cette méthode fonctionne car les event handlers s'exécutent même via innerHTML.</em>
+                </p>
+                <button onclick="testDataTheft()" class="btn primary" style="margin-top: 1rem;">
+                  🧪 Tester le vol de données
+                </button>
+                <p class="exploit-note">
+                  ⚠️ <strong>Résultat attendu</strong> : Les données du diagnostic sont affichées dans la console du navigateur (F12).
+                </p>
+              </div>
+
+              <div class="exploit-demo">
+                <h5>Test 3 : Manipulation du diagnostic</h5>
+                <p>Cliquez sur le bouton ci-dessous pour modifier directement les données :</p>
+                <code class="exploit-code">localStorage.setItem('diagnostic_result', JSON.stringify({score: 100, level: 'hacked'}));</code>
+                <button onclick="testDataManipulation()" class="btn primary" style="margin-top: 1rem;">
+                  🧪 Tester la manipulation de données
+                </button>
+                <p class="exploit-note">
+                  ⚠️ <strong>Résultat attendu</strong> : Les données du diagnostic sont modifiées. Vérifiez dans la console (F12) avec : <code>localStorage.getItem('diagnostic_result')</code>
+                </p>
+              </div>
+
+              <h4>🛡️ Comment s'en protéger</h4>
+              
+              <div class="protection-guide">
+                <div class="protection-item">
+                  <h5>1. Échappement des données (Sanitization)</h5>
+                  <p>
+                    <strong>Problème</strong> : Les entrées utilisateur sont directement insérées dans le DOM.
+                  </p>
+                  <p>
+                    <strong>Solution</strong> : Toujours échapper les caractères spéciaux HTML/JavaScript :
+                  </p>
+                  <code class="code-example">
+function escapeHtml(text) {<br>
+&nbsp;&nbsp;const div = document.createElement('div');<br>
+&nbsp;&nbsp;div.textContent = text;<br>
+&nbsp;&nbsp;return div.innerHTML;<br>
+}
+                  </code>
+                </div>
+
+                <div class="protection-item">
+                  <h5>2. Validation des entrées</h5>
+                  <p>
+                    <strong>Problème</strong> : Aucune validation des données avant traitement.
+                  </p>
+                  <p>
+                    <strong>Solution</strong> : Valider et nettoyer toutes les entrées :
+                  </p>
+                  <code class="code-example">
+function sanitizeInput(input) {<br>
+&nbsp;&nbsp;return input.replace(/[&lt;&gt;]/g, ''); // Supprime &lt; et &gt;<br>
+}
+                  </code>
+                </div>
+
+                <div class="protection-item">
+                  <h5>3. Content Security Policy (CSP)</h5>
+                  <p>
+                    <strong>Solution</strong> : Ajouter un header CSP pour bloquer l'exécution de scripts inline :
+                  </p>
+                  <code class="code-example">
+&lt;meta http-equiv="Content-Security-Policy"<br>
+&nbsp;&nbsp;content="default-src 'self'; script-src 'self' 'unsafe-inline';"&gt;
+                  </code>
+                </div>
+
+                <div class="protection-item">
+                  <h5>4. Validation côté serveur</h5>
+                  <p>
+                    <strong>Important</strong> : La validation côté client n'est jamais suffisante. 
+                    Toujours valider et échapper les données côté serveur.
+                  </p>
+                </div>
+
+                <div class="protection-item">
+                  <h5>5. Sécurisation du localStorage</h5>
+                  <p>
+                    <strong>Problème</strong> : Données sensibles stockées sans protection.
+                  </p>
+                  <p>
+                    <strong>Solution</strong> : 
+                  </p>
+                  <ul>
+                    <li>Ne jamais stocker de données sensibles dans le localStorage</li>
+                    <li>Utiliser des tokens signés (JWT) avec expiration</li>
+                    <li>Chiffrer les données si nécessaire</li>
+                    <li>Valider les données avant de les utiliser</li>
+                  </ul>
+                </div>
+              </div>
+
+              <h4>📚 Ressources pour aller plus loin</h4>
+              <ul class="security-resources">
+                <li><strong>Documentation complète</strong> : Voir le fichier <code>FAILLE_SECURITE.md</code> pour une explication détaillée</li>
+                <li><strong>OWASP Top 10</strong> : Liste des 10 failles web les plus critiques</li>
+                <li><strong>OWASP XSS Prevention Cheat Sheet</strong> : Guide complet contre les XSS</li>
+                <li><strong>Content Security Policy</strong> : Documentation MDN sur le CSP</li>
+                <li><strong>Secure Coding Practices</strong> : Bonnes pratiques de développement sécurisé</li>
+              </ul>
+
+              <div class="security-note">
+                <h5>💡 Pourquoi cette faille est instructive ?</h5>
+                <p>
+                  Cette faille démontre deux problèmes courants dans le développement web :
+                </p>
+                <ol>
+                  <li>
+                    <strong>Confiance aveugle dans les données utilisateur</strong> : 
+                    Ne jamais faire confiance aux données entrantes, même si elles viennent de votre propre interface.
+                  </li>
+                  <li>
+                    <strong>Stockage non sécurisé</strong> : 
+                    Le localStorage est accessible à tous les scripts de la page, y compris ceux injectés via XSS.
+                  </li>
+                </ol>
+                <p>
+                  En comprenant comment ces failles fonctionnent, vous serez mieux armé·e pour les éviter dans vos propres projets.
+                </p>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
     </main>
