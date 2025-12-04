@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Village Numérique Résistant – NIRD à l'école</title>
+    <meta
+      name="description"
+      content="Un mini-site pour aider les collèges et lycées à entrer dans une démarche de numérique inclusif, responsable et durable (NIRD) et à résister aux Big Tech."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true">🌿</div>
+        <div class="brand-text">
+          <h1>Village Numérique Résistant</h1>
+          <p>Démarrer la démarche NIRD dans ton établissement</p>
+        </div>
+      </div>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <button class="nav-toggle" aria-expanded="false" aria-label="Ouvrir le menu">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+        <ul class="nav-links">
+          <li><a href="#accueil">🏠 Accueil</a></li>
+          <li><a href="#diagnostic">📊 Diagnostic NIRD</a></li>
+          <li><a href="#fiches-actions">📋 Fiches-actions</a></li>
+          <li><a href="#ressources">📚 Ressources</a></li>
+          <li><a href="#jeu">🎮 Mini-Jeu N(I)RD</a></li>
+          <li><a href="#securite">🔒 Sécurité & Faille</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- ACCUEIL -->
+      <section id="accueil" class="section hero" aria-labelledby="titre-accueil">
+        <div class="hero-content">
+          <div>
+            <h2 id="titre-accueil">Bienvenue au Village Numérique Résistant</h2>
+            <p class="hero-intro">
+              Ton établissement peut résister à la domination des Big Tech, comme un petit village
+              d'Astérix qui protège ses valeurs. Ce site t’aide à lancer une démarche de
+              <strong>numérique inclusif, responsable et durable (NIRD)</strong> au collège ou au lycée.
+            </p>
+            <p>
+              En quelques minutes, tu peux :
+            </p>
+            <ul class="hero-list">
+              <li>Comprendre les bases du <strong>numérique NIRD</strong></li>
+              <li>Faire un <strong>diagnostic rapide</strong> de ton établissement</li>
+              <li>Obtenir un <strong>plan d’actions concret</strong> et des fiches prêtes à l’emploi</li>
+            </ul>
+            <div class="hero-actions">
+              <a href="#diagnostic" class="btn primary">🚀 Commencer le diagnostic</a>
+              <a href="#ressources" class="btn ghost">📚 Voir les ressources libres</a>
+            </div>
+          </div>
+          <div class="hero-card" aria-label="Illustration du village numérique">
+            <h3>Le Village NIRD</h3>
+            <p>
+              Imagine un village scolaire où :
+            </p>
+            <ul>
+              <li>Les données restent à l’école ou chez des hébergeurs éthiques</li>
+              <li>Les ordinateurs vivent plus longtemps grâce au reconditionnement</li>
+              <li>Les élèves apprennent avec des <strong>logiciels libres</strong></li>
+            </ul>
+            <p class="hero-subnote">
+              Ce site est un premier pas. Tu n’as pas besoin d’être expert·e en informatique.
+            </p>
+          </div>
+        </div>
+
+        <section class="pillars" aria-label="Principes du numérique NIRD">
+          <h3>Les 5 piliers du numérique NIRD</h3>
+          <div class="pillars-grid">
+            <article class="pillar-card">
+              <h4>Numérique inclusif</h4>
+              <p>
+                Tout le monde doit pouvoir participer : élèves en situation de handicap, familles peu
+                équipées, personnels non spécialistes. On choisit des outils simples, accessibles et
+                bien expliqués.
+              </p>
+            </article>
+            <article class="pillar-card">
+              <h4>Numérique responsable</h4>
+              <p>
+                On se pose la question : « Est-ce vraiment utile ? ». On évite la collecte massive
+                de données, on protège la vie privée et on choisit des outils éthiques.
+              </p>
+            </article>
+            <article class="pillar-card">
+              <h4>Numérique durable</h4>
+              <p>
+                On limite l’impact écologique : on allonge la durée de vie des appareils, on réduit
+                les vidéos inutiles, on choisit des services plus sobres en énergie.
+              </p>
+            </article>
+            <article class="pillar-card">
+              <h4>Logiciels libres</h4>
+              <p>
+                Un logiciel libre peut être étudié, modifié et partagé. Il permet de ne pas dépendre
+                d’un seul géant du numérique et de garder le contrôle sur ses usages.
+              </p>
+            </article>
+            <article class="pillar-card">
+              <h4>Souveraineté des données</h4>
+              <p>
+                Les données des élèves et des personnels sont sensibles. On privilégie des solutions
+                hébergées en Europe, publiques ou associatives, avec des règles claires.
+              </p>
+            </article>
+            <article class="pillar-card">
+              <h4>Accessibilité pour tous</h4>
+              <p>
+                Les sites et applications doivent être lisibles, navigables au clavier, utilisables
+                avec des lecteurs d’écran et compréhensibles par des non-spécialistes.
+              </p>
+            </article>
+          </div>
+        </section>
+      </section>
+
+      <!-- DIAGNOSTIC INTERACTIF -->
+      <section id="diagnostic" class="section diagnostic" aria-labelledby="titre-diagnostic">
+        <div class="section-header">
+          <h2 id="titre-diagnostic">Diagnostic express NIRD</h2>
+          <p>
+            Réponds à quelques questions et découvre ton <strong>profil de village numérique</strong> :
+            assiégé par les Big Tech, en transition ou déjà résistant.
+          </p>
+        </div>
+
+        <form id="diagnostic-form" class="diagnostic-form">
+          <fieldset>
+            <legend>Qui es-tu&nbsp;?</legend>
+            <div class="role-options">
+              <label>
+                <input type="radio" name="role" value="chef" checked />
+                Chef d’établissement
+              </label>
+              <label>
+                <input type="radio" name="role" value="enseignant" />
+                Enseignant·e
+              </label>
+              <label>
+                <input type="radio" name="role" value="eleve" />
+                Élève / éco-délégué·e
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="questions">
+            <div class="question-card">
+              <h3>1. Outils et logiciels</h3>
+              <p>Dans ton établissement, les outils numériques sont plutôt...</p>
+              <label>
+                <input type="radio" name="q1" value="0" checked />
+                Majoritairement des services de grandes plateformes privées (GAFAM, etc.)
+              </label>
+              <label>
+                <input type="radio" name="q1" value="1" />
+                Un mélange de services propriétaires et de quelques logiciels libres
+              </label>
+              <label>
+                <input type="radio" name="q1" value="2" />
+                Principalement des logiciels libres ou des services publics / associatifs
+              </label>
+            </div>
+
+            <div class="question-card">
+              <h3>2. Matériel et réemploi</h3>
+              <p>Que se passe-t-il quand un ordinateur devient « trop vieux » ?</p>
+              <label>
+                <input type="radio" name="q2" value="0" checked />
+                Il est remplacé rapidement par du neuf, sans réflexion particulière
+              </label>
+              <label>
+                <input type="radio" name="q2" value="1" />
+                On tente de le réutiliser un peu, mais sans vraie organisation
+              </label>
+              <label>
+                <input type="radio" name="q2" value="2" />
+                On a une démarche de reconditionnement / don / réparation, si possible avec les élèves
+              </label>
+            </div>
+
+            <div class="question-card">
+              <h3>3. Empreinte écologique</h3>
+              <p>Comment l’impact écologique du numérique est-il pris en compte ?</p>
+              <label>
+                <input type="radio" name="q3" value="0" checked />
+                On n’en parle quasiment jamais
+              </label>
+              <label>
+                <input type="radio" name="q3" value="1" />
+                On en parle ponctuellement (projets, cours), mais sans plan global
+              </label>
+              <label>
+                <input type="radio" name="q3" value="2" />
+                C’est un thème régulier : affiches, projets, charte d’usage, etc.
+              </label>
+            </div>
+
+            <div class="question-card">
+              <h3>4. Données et vie privée</h3>
+              <p>Les questions de données personnelles sont-elles discutées ?</p>
+              <label>
+                <input type="radio" name="q4" value="0" checked />
+                Rarement : on utilise ce qui fonctionne, sans trop se poser de questions
+              </label>
+              <label>
+                <input type="radio" name="q4" value="1" />
+                On aborde la question, mais les choix d’outils ne suivent pas toujours
+              </label>
+              <label>
+                <input type="radio" name="q4" value="2" />
+                On choisit les outils en tenant compte de la souveraineté des données
+              </label>
+            </div>
+
+            <div class="question-card">
+              <h3>5. Inclusion et accessibilité</h3>
+              <p>Les besoins spécifiques des élèves sont-ils pris en compte ?</p>
+              <label>
+                <input type="radio" name="q5" value="0" checked />
+                Peu, faute de temps ou de repères
+              </label>
+              <label>
+                <input type="radio" name="q5" value="1" />
+                Parfois, quand une situation se présente
+              </label>
+              <label>
+                <input type="radio" name="q5" value="2" />
+                Oui, on adapte les supports et on teste l’accessibilité des outils
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn primary full-width">
+            ✨ Voir mon plan d'actions NIRD
+          </button>
+        </form>
+
+        <section id="diagnostic-resultat" class="diagnostic-result" aria-live="polite">
+          <h3>Ton profil de village numérique</h3>
+          <p class="result-summary">Réponds au questionnaire pour voir ton résultat.</p>
+          <div class="result-badge" data-level="initial">
+            <span class="badge-label">Profil :</span>
+            <span class="badge-value">À la merci des Big Tech</span>
+          </div>
+          <div class="result-details"></div>
+          <div class="result-actions">
+            <button class="btn ghost" data-scroll-to="#fiches-actions">
+              Voir les fiches-actions proposées
+            </button>
+          </div>
+        </section>
+      </section>
+
+      <!-- FICHES ACTIONS -->
+      <section id="fiches-actions" class="section actions" aria-labelledby="titre-actions">
+        <div class="section-header">
+          <h2 id="titre-actions">Fiches-actions pour ton village numérique</h2>
+          <p>
+            Voici quelques actions rapides à lancer. Chaque fiche indique&nbsp;: le niveau de
+            difficulté, les acteurs concernés et les bénéfices principaux.
+          </p>
+        </div>
+
+        <div class="actions-grid">
+          <article class="action-card" data-tags="chef enseignant">
+            <h3>Passer une salle info sous Linux NIRD</h3>
+            <p class="action-meta">
+              Difficulté : ⭐⭐☆ – Acteurs : équipe informatique, enseignant·es motivé·es
+            </p>
+            <ul class="action-points">
+              <li><strong>Objectif</strong> : Remplacer un système propriétaire par une
+                distribution GNU/Linux adaptée à l’éducation.</li>
+              <li><strong>Étapes clés</strong> : choisir une distribution libre (par ex. basée sur
+                Debian ou Ubuntu), tester sur 1–2 postes, documenter les usages pour les collègues.</li>
+              <li><strong>Bénéfices</strong> : plus de maîtrise sur les logiciels installés, moins de
+                licences payantes, matériel souvent plus fluide.</li>
+            </ul>
+            <p class="action-tip">
+              Astuce&nbsp;: Commence par une « salle pilote » avec un petit groupe d’enseignant·es
+              volontaires.
+            </p>
+          </article>
+
+          <article class="action-card" data-tags="enseignant eleve">
+            <h3>Atelier reconditionnement de PC avec les élèves</h3>
+            <p class="action-meta">
+              Difficulté : ⭐⭐☆ – Acteurs : élèves (clubs, éco-délégués), enseignant·es
+            </p>
+            <ul class="action-points">
+              <li><strong>Objectif</strong> : Prolonger la vie d’anciens ordinateurs pour les réutiliser
+                au sein de l’établissement ou les donner.</li>
+              <li><strong>Étapes clés</strong> : récupérer du matériel, diagnostiquer les pannes simples,
+                installer un système libre léger, effacer les anciennes données proprement.</li>
+              <li><strong>Bénéfices</strong> : réduction des déchets électroniques, projet concret
+                d’éducation au numérique responsable.</li>
+            </ul>
+            <p class="action-tip">
+              Astuce&nbsp;: Documente chaque étape avec des photos et crée une affiche « Hôpital des
+              PC » dans le hall.
+            </p>
+          </article>
+
+          <article class="action-card" data-tags="chef enseignant">
+            <h3>Remplacer un service propriétaire par un service libre</h3>
+            <p class="action-meta">
+              Difficulté : ⭐⭐☆ – Acteurs : direction, référent·es numériques
+            </p>
+            <ul class="action-points">
+              <li><strong>Objectif</strong> : Identifier un outil largement utilisé (visioconférence,
+                stockage, sondages…) et lui trouver une alternative libre.</li>
+              <li><strong>Étapes clés</strong> : recenser les usages actuels, comparer 2–3 solutions
+                libres, tester avec un petit groupe, puis généraliser.</li>
+              <li><strong>Bénéfices</strong> : plus de souveraineté sur les données, meilleure
+                compréhension des conditions d’utilisation.</li>
+            </ul>
+            <p class="action-tip">
+              Astuce&nbsp;: Prépare une fiche de prise en main pour rassurer les collègues.
+            </p>
+          </article>
+
+          <article class="action-card" data-tags="enseignant eleve">
+            <h3>Défi sobriété numérique sur une semaine</h3>
+            <p class="action-meta">
+              Difficulté : ⭐☆☆ – Acteurs : classes, vie scolaire
+            </p>
+            <ul class="action-points">
+              <li><strong>Objectif</strong> : Réduire les usages numériques les plus gourmands
+                (vidéos HD, envois massifs de pièces jointes, stockage inutile).</li>
+              <li><strong>Étapes clés</strong> : expliquer l’impact de la vidéo en ligne, proposer des
+                alternatives (audio, textes), mettre en place un « compteur d’économies » en classe.</li>
+              <li><strong>Bénéfices</strong> : prise de conscience des élèves, économie de bande
+                passante et de stockage.</li>
+            </ul>
+            <p class="action-tip">
+              Astuce&nbsp;: Organise une restitution créative (affiches, podcasts, mini‑vidéos sobres).
+            </p>
+          </article>
+
+          <article class="action-card" data-tags="chef enseignant eleve">
+            <h3>Créer une charte NIRD de l’établissement</h3>
+            <p class="action-meta">
+              Difficulté : ⭐⭐☆ – Acteurs : conseil de vie collégienne/lycéenne, équipes
+            </p>
+            <ul class="action-points">
+              <li><strong>Objectif</strong> : Formaliser quelques règles simples d’usage du numérique
+                à l’école, dans l’esprit NIRD.</li>
+              <li><strong>Étapes clés</strong> : atelier de discussion, rédaction d’un texte court,
+                vote ou validation par les instances, affichage dans les lieux de passage.</li>
+              <li><strong>Bénéfices</strong> : cadre partagé, meilleure cohérence entre projets.</li>
+            </ul>
+            <p class="action-tip">
+              Astuce&nbsp;: Utilise un langage accessible aux élèves et illustre la charte avec une
+              mascotte de village.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- RESSOURCES -->
+      <section id="ressources" class="section resources" aria-labelledby="titre-ressources">
+        <div class="section-header">
+          <h2 id="titre-ressources">Ressources NIRD et logiciels libres</h2>
+          <p>
+            Ces pistes permettent d’aller plus loin. Toutes les ressources mentionnées ici sont
+            libres ou liées à des communs numériques.
+          </p>
+        </div>
+
+        <div class="resources-grid">
+          <article class="resource-column">
+            <h3>Logiciels libres utiles au collège / lycée</h3>
+            <ul class="resource-list">
+              <li>
+                <strong>Bureautique</strong> : suites libres comme LibreOffice pour remplacer des
+                suites propriétaires.
+              </li>
+              <li>
+                <strong>Navigation</strong> : navigateurs libres basés sur des projets ouverts,
+                configurés pour limiter le pistage.
+              </li>
+              <li>
+                <strong>Dessin &amp; création</strong> : logiciels libres de dessin vectoriel ou de
+                retouche photo pour les cours d’arts plastiques.
+              </li>
+              <li>
+                <strong>Montage audio/vidéo</strong> : outils libres pour créer des podcasts ou des
+                capsules vidéo sans passer par des plateformes fermées.
+              </li>
+            </ul>
+          </article>
+
+          <article class="resource-column">
+            <h3>Pratiques de réemploi et de sobriété</h3>
+            <ul class="resource-list">
+              <li>
+                <strong>Allonger la durée de vie</strong> : installer des systèmes légers sur de
+                vieux PC plutôt que les jeter.
+              </li>
+              <li>
+                <strong>Mutualiser le matériel</strong> : créer une « réserve » d’écrans, claviers,
+                souris pour réparer au lieu de racheter.
+              </li>
+              <li>
+                <strong>Sobriété des usages</strong> : privilégier les documents texte, limiter la
+                vidéo HD et les pièces jointes lourdes.
+              </li>
+              <li>
+                <strong>Sensibiliser les classes</strong> : intégrer l’empreinte numérique dans les
+                cours de sciences, de techno ou d’EMC.
+              </li>
+            </ul>
+          </article>
+
+          <article class="resource-column">
+            <h3>Communautés et communs éducatifs</h3>
+            <ul class="resource-list">
+              <li>
+                <strong>Forge des communs numériques éducatifs</strong> : une plateforme qui
+                rassemble des outils, ressources et logiciels développés pour l’éducation.
+              </li>
+              <li>
+                <strong>Démarche NIRD</strong> : le site officiel présente les principes détaillés,
+                des retours d’expérience et des outils d’auto-évaluation.
+              </li>
+              <li>
+                <strong>Collectifs et associations</strong> : de nombreux groupes accompagnent les
+                établissements dans la transition vers des outils libres et responsables.
+              </li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="links-note">
+          <p>
+            Par précaution, ce prototype ne contient pas de liens directs. Lors du déploiement, tu
+            pourras ajouter des liens vers&nbsp;:
+          </p>
+          <ul>
+            <li>la <strong>Forge des communs numériques éducatifs</strong> ;</li>
+            <li>le site officiel de la démarche <strong>NIRD</strong> ;</li>
+            <li>les sites des principaux logiciels libres utilisés dans l’établissement.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- MINI-JEU N(I)RD -->
+      <section id="jeu" class="section game" aria-labelledby="titre-jeu">
+        <div class="section-header">
+          <h2 id="titre-jeu">🎮 Mini-Jeu : Construis le I de N(I)RD</h2>
+          <p>
+            Le <strong>I</strong> de NIRD signifie <strong>Inclusif</strong>. 
+            Collecte les éléments inclusifs qui tombent pour construire le I et compléter NIRD !
+          </p>
+        </div>
+
+        <div class="game-container">
+          <div class="game-header">
+            <div class="game-score">
+              <span class="score-label">Éléments collectés :</span>
+              <span id="game-score" class="score-value">0</span>
+              <span class="score-separator">/</span>
+              <span id="game-total" class="score-total">5</span>
+            </div>
+            <div class="game-timer">
+              <span class="timer-label">⏱️ Temps :</span>
+              <span id="game-timer" class="timer-value">60</span>s
+            </div>
+          </div>
+
+          <div class="game-word">
+            <div class="word-letter" data-letter="N">N</div>
+            <div class="word-letter" data-letter="I" id="letter-i">
+              <div class="letter-parts">
+                <div class="letter-part" id="part-1"></div>
+                <div class="letter-part" id="part-2"></div>
+                <div class="letter-part" id="part-3"></div>
+                <div class="letter-part" id="part-4"></div>
+                <div class="letter-part" id="part-5"></div>
+              </div>
+            </div>
+            <div class="word-letter" data-letter="R">R</div>
+            <div class="word-letter" data-letter="D">D</div>
+          </div>
+
+          <div class="game-instructions">
+            <p>👆 Clique sur les éléments <strong>inclusifs</strong> qui tombent !</p>
+            <p>❌ Évite les éléments <strong>non inclusifs</strong> !</p>
+          </div>
+
+          <div class="game-area" id="game-area">
+            <!-- Les éléments tomberont ici -->
+          </div>
+
+          <div class="game-actions">
+            <button id="game-start" class="btn primary">
+              🚀 Commencer le jeu
+            </button>
+            <button id="game-restart" class="btn ghost" style="display: none;">
+              🔄 Rejouer
+            </button>
+          </div>
+
+          <div class="game-result" id="game-result" style="display: none;">
+            <h3 id="result-title">🎉 Félicitations !</h3>
+            <p id="result-message"></p>
+            <div class="result-badge-game" id="result-badge"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION SÉCURITÉ ET FAILLE -->
+      <section id="securite" class="section security" aria-labelledby="titre-securite">
+        <div class="section-header">
+          <h2 id="titre-securite">🔒 Sécurité Numérique : Apprendre en Pratiquant</h2>
+          <p>
+            Cette section présente une <strong>faille de sécurité volontaire</strong> à des fins pédagogiques.
+            L'objectif est de comprendre comment les failles fonctionnent pour mieux s'en protéger.
+          </p>
+          <div style="margin-top: 2rem;">
+            <button onclick="document.getElementById('securite').scrollIntoView({behavior: 'smooth'})" class="btn primary">
+              🎯 Tester les failles maintenant
+            </button>
+          </div>
+        </div>
+
+        <div class="security-warning">
+          <h3>⚠️ Avertissement</h3>
+          <p>
+            Cette faille est <strong>intentionnelle et contrôlée</strong>. Elle ne doit <strong>JAMAIS</strong> être reproduite
+            sur un site en production. Cette démonstration est uniquement à des fins éducatives pour comprendre
+            les risques de sécurité dans le développement web.
+          </p>
+        </div>
+
+        <div class="security-content">
+          <article class="security-card">
+            <h3>🎯 La Faille : XSS (Cross-Site Scripting) + Manipulation de Données</h3>
+            <p class="security-meta">Type : Injection de code côté client | Niveau : Moyen | Impact : Élevé</p>
+            
+            <div class="security-details">
+              <h4>📖 Fonctionnement de la faille</h4>
+              <p>
+                Cette application présente <strong>deux failles combinées</strong> :
+              </p>
+              <ol>
+                <li>
+                  <strong>XSS (Cross-Site Scripting) dans le chatbot</strong> : 
+                  Les messages du chatbot ne sont pas correctement échappés, permettant l'injection de code JavaScript.
+                </li>
+                <li>
+                  <strong>Manipulation de données du diagnostic</strong> : 
+                  Les résultats du diagnostic sont stockés dans le localStorage sans validation, permettant leur modification.
+                </li>
+              </ol>
+              
+              <h4>🔍 Comment la reproduire</h4>
+              
+              <div class="exploit-demo">
+                <h5>Test 1 : Injection XSS dans le chatbot</h5>
+                <p>Dans le chatbot (bouton en bas à droite), tapez ce message :</p>
+                <code class="exploit-code">&lt;img src=x onerror="alert('XSS ! Les données peuvent être volées !')"&gt;</code>
+                <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--color-text-light);">
+                  <em>Note : Les balises &lt;script&gt; ne fonctionnent pas via innerHTML, mais les event handlers comme onerror fonctionnent !</em>
+                </p>
+                <button onclick="testXSS()" class="btn primary" style="margin-top: 1rem;">
+                  🧪 Tester cette faille XSS
+                </button>
+                <p class="exploit-note">
+                  ⚠️ <strong>Résultat attendu</strong> : Une alerte s'affiche, démontrant que du code JavaScript peut être exécuté.
+                </p>
+              </div>
+
+              <div class="exploit-demo">
+                <h5>Test 2 : Vol de données via XSS</h5>
+                <p>Essayez cette injection plus malveillante dans le chatbot :</p>
+                <code class="exploit-code">&lt;img src=x onerror="console.log('Données volées:', localStorage.getItem('diagnostic_result'))"&gt;</code>
+                <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--color-text-light);">
+                  <em>Note : Cette méthode fonctionne car les event handlers s'exécutent même via innerHTML.</em>
+                </p>
+                <button onclick="testDataTheft()" class="btn primary" style="margin-top: 1rem;">
+                  🧪 Tester le vol de données
+                </button>
+                <p class="exploit-note">
+                  ⚠️ <strong>Résultat attendu</strong> : Les données du diagnostic sont affichées dans la console du navigateur (F12).
+                </p>
+              </div>
+
+              <div class="exploit-demo">
+                <h5>Test 3 : Manipulation du diagnostic</h5>
+                <p>Cliquez sur le bouton ci-dessous pour modifier directement les données :</p>
+                <code class="exploit-code">localStorage.setItem('diagnostic_result', JSON.stringify({score: 100, level: 'hacked'}));</code>
+                <button onclick="testDataManipulation()" class="btn primary" style="margin-top: 1rem;">
+                  🧪 Tester la manipulation de données
+                </button>
+                <p class="exploit-note">
+                  ⚠️ <strong>Résultat attendu</strong> : Les données du diagnostic sont modifiées. Vérifiez dans la console (F12) avec : <code>localStorage.getItem('diagnostic_result')</code>
+                </p>
+              </div>
+
+              <h4>🛡️ Comment s'en protéger</h4>
+              
+              <div class="protection-guide">
+                <div class="protection-item">
+                  <h5>1. Échappement des données (Sanitization)</h5>
+                  <p>
+                    <strong>Problème</strong> : Les entrées utilisateur sont directement insérées dans le DOM.
+                  </p>
+                  <p>
+                    <strong>Solution</strong> : Toujours échapper les caractères spéciaux HTML/JavaScript :
+                  </p>
+                  <code class="code-example">
+function escapeHtml(text) {<br>
+&nbsp;&nbsp;const div = document.createElement('div');<br>
+&nbsp;&nbsp;div.textContent = text;<br>
+&nbsp;&nbsp;return div.innerHTML;<br>
+}
+                  </code>
+                </div>
+
+                <div class="protection-item">
+                  <h5>2. Validation des entrées</h5>
+                  <p>
+                    <strong>Problème</strong> : Aucune validation des données avant traitement.
+                  </p>
+                  <p>
+                    <strong>Solution</strong> : Valider et nettoyer toutes les entrées :
+                  </p>
+                  <code class="code-example">
+function sanitizeInput(input) {<br>
+&nbsp;&nbsp;return input.replace(/[&lt;&gt;]/g, ''); // Supprime &lt; et &gt;<br>
+}
+                  </code>
+                </div>
+
+                <div class="protection-item">
+                  <h5>3. Content Security Policy (CSP)</h5>
+                  <p>
+                    <strong>Solution</strong> : Ajouter un header CSP pour bloquer l'exécution de scripts inline :
+                  </p>
+                  <code class="code-example">
+&lt;meta http-equiv="Content-Security-Policy"<br>
+&nbsp;&nbsp;content="default-src 'self'; script-src 'self' 'unsafe-inline';"&gt;
+                  </code>
+                </div>
+
+                <div class="protection-item">
+                  <h5>4. Validation côté serveur</h5>
+                  <p>
+                    <strong>Important</strong> : La validation côté client n'est jamais suffisante. 
+                    Toujours valider et échapper les données côté serveur.
+                  </p>
+                </div>
+
+                <div class="protection-item">
+                  <h5>5. Sécurisation du localStorage</h5>
+                  <p>
+                    <strong>Problème</strong> : Données sensibles stockées sans protection.
+                  </p>
+                  <p>
+                    <strong>Solution</strong> : 
+                  </p>
+                  <ul>
+                    <li>Ne jamais stocker de données sensibles dans le localStorage</li>
+                    <li>Utiliser des tokens signés (JWT) avec expiration</li>
+                    <li>Chiffrer les données si nécessaire</li>
+                    <li>Valider les données avant de les utiliser</li>
+                  </ul>
+                </div>
+              </div>
+
+              <h4>📚 Ressources pour aller plus loin</h4>
+              <ul class="security-resources">
+                <li><strong>Documentation complète</strong> : Voir le fichier <code>FAILLE_SECURITE.md</code> pour une explication détaillée</li>
+                <li><strong>OWASP Top 10</strong> : Liste des 10 failles web les plus critiques</li>
+                <li><strong>OWASP XSS Prevention Cheat Sheet</strong> : Guide complet contre les XSS</li>
+                <li><strong>Content Security Policy</strong> : Documentation MDN sur le CSP</li>
+                <li><strong>Secure Coding Practices</strong> : Bonnes pratiques de développement sécurisé</li>
+              </ul>
+
+              <div class="security-note">
+                <h5>💡 Pourquoi cette faille est instructive ?</h5>
+                <p>
+                  Cette faille démontre deux problèmes courants dans le développement web :
+                </p>
+                <ol>
+                  <li>
+                    <strong>Confiance aveugle dans les données utilisateur</strong> : 
+                    Ne jamais faire confiance aux données entrantes, même si elles viennent de votre propre interface.
+                  </li>
+                  <li>
+                    <strong>Stockage non sécurisé</strong> : 
+                    Le localStorage est accessible à tous les scripts de la page, y compris ceux injectés via XSS.
+                  </li>
+                </ol>
+                <p>
+                  En comprenant comment ces failles fonctionnent, vous serez mieux armé·e pour les éviter dans vos propres projets.
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        Contenus textuels sous licence <strong>CC BY-SA 4.0</strong>. Code source (HTML/CSS/JS)
+        sous licence <strong>MIT</strong>. Images et icônes : utiliser uniquement des ressources
+        libres (par ex. bibliothèques d'icônes sous licence libre).
+      </p>
+      <p>
+        Prototype créé pour la <strong>Nuit de l'Info 2025</strong> – « Le Village Numérique Résistant ».
+      </p>
+    </footer>
+
+    <!-- Chatbot -->
+    <div id="chatbot-container" class="chatbot-container">
+      <div id="chatbot-toggle" class="chatbot-toggle" aria-label="Ouvrir le chatbot">
+        <span class="chatbot-icon">💬</span>
+        <span class="chatbot-badge" id="chatbot-badge">1</span>
+      </div>
+      <div id="chatbot-window" class="chatbot-window">
+        <div class="chatbot-header">
+          <div class="chatbot-header-content">
+            <div class="chatbot-avatar">🤔</div>
+            <div>
+              <h3>Gérard, le Philosophe du Numérique</h3>
+              <p>Spécialiste en méditations profondes sur les bits</p>
+            </div>
+          </div>
+          <button id="chatbot-close" class="chatbot-close" aria-label="Fermer le chatbot">×</button>
+        </div>
+        <div id="chatbot-messages" class="chatbot-messages">
+          <div class="chatbot-message bot-message">
+            <div class="message-avatar">🤔</div>
+            <div class="message-content">
+              <p>Ah, un être humain ! *ajuste ses lunettes imaginaires* 🌿<br><br>Moi, c'est Gérard. Je médite depuis des années sur la question fondamentale : <em>Si un bit tombe dans une forêt numérique, fait-il du bruit ?</em><br><br>Tu veux débattre de l'existence métaphysique des logiciels libres ? Ou préfères-tu qu'on parle de la couleur du numérique responsable ? 🎭</p>
+            </div>
+          </div>
+        </div>
+        <div class="chatbot-input-container">
+          <input 
+            type="text" 
+            id="chatbot-input" 
+            class="chatbot-input" 
+            placeholder="Tape ton message..."
+            aria-label="Zone de saisie du chatbot"
+          />
+          <button id="chatbot-send" class="chatbot-send" aria-label="Envoyer le message">
+            <span>➤</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+
+
