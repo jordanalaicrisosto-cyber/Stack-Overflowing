@@ -977,3 +977,393 @@ function testDataManipulation() {
         'localStorage.getItem("diagnostic_result")');
 }
 
+/* ============================================
+   MINI-JEU N(I)RD - Construis le I (Inclusif)
+   Jeu de collecte interactif
+   ============================================ */
+
+// Éléments du jeu (inclusifs et non inclusifs)
+const gameElements = [
+  // Éléments INCLUSIFS (à collecter)
+  { text: '♿ Navigation clavier', type: 'inclusive', icon: '⌨️' },
+  { text: '🎨 Contrastes suffisants', type: 'inclusive', icon: '🌈' },
+  { text: '📢 Textes alternatifs', type: 'inclusive', icon: '📝' },
+  { text: '🔊 Lecteur d\'écran', type: 'inclusive', icon: '👁️' },
+  { text: '📱 Responsive design', type: 'inclusive', icon: '📲' },
+  { text: '🌐 Langage simple', type: 'inclusive', icon: '💬' },
+  { text: '🎯 Focus visible', type: 'inclusive', icon: '✨' },
+  { text: '📖 Documentation claire', type: 'inclusive', icon: '📚' },
+  
+  // Éléments NON INCLUSIFS (à éviter)
+  { text: '❌ Souris obligatoire', type: 'non-inclusive', icon: '🖱️' },
+  { text: '❌ Pas de contraste', type: 'non-inclusive', icon: '🚫' },
+  { text: '❌ Images sans alt', type: 'non-inclusive', icon: '🖼️' },
+  { text: '❌ Texte trop petit', type: 'non-inclusive', icon: '🔍' },
+  { text: '❌ Interface complexe', type: 'non-inclusive', icon: '⚙️' },
+  { text: '❌ Pas d\'accessibilité', type: 'non-inclusive', icon: '🚪' }
+];
+
+// État du jeu
+let gameState = {
+  score: 0,
+  target: 5,
+  timer: 60,
+  timerInterval: null,
+  isPlaying: false,
+  elements: [],
+  collected: 0,
+  missed: 0
+};
+
+// Initialiser le jeu
+function initGame() {
+  gameState = {
+    score: 0,
+    target: 5,
+    timer: 60,
+    timerInterval: null,
+    isPlaying: false,
+    elements: [],
+    collected: 0,
+    missed: 0
+  };
+  
+  // Réinitialiser l'UI
+  const scoreEl = document.getElementById('game-score');
+  const totalEl = document.getElementById('game-total');
+  const timerEl = document.getElementById('game-timer');
+  const resultDiv = document.getElementById('game-result');
+  const startBtn = document.getElementById('game-start');
+  const restartBtn = document.getElementById('game-restart');
+  
+  if (scoreEl) scoreEl.textContent = '0';
+  if (totalEl) totalEl.textContent = gameState.target;
+  if (timerEl) {
+    timerEl.textContent = gameState.timer;
+    timerEl.classList.remove('warning');
+  }
+  if (resultDiv) resultDiv.style.display = 'none';
+  if (startBtn) startBtn.style.display = 'block';
+  if (restartBtn) restartBtn.style.display = 'none';
+  
+  // Réinitialiser la lettre I
+  const letterI = document.getElementById('letter-i');
+  if (letterI) {
+    letterI.classList.remove('complete');
+    for (let i = 1; i <= 5; i++) {
+      const part = document.getElementById(`part-${i}`);
+      if (part) part.classList.remove('collected');
+    }
+  }
+  
+  // Vider la zone de jeu
+  const gameArea = document.getElementById('game-area');
+  if (gameArea) {
+    gameArea.innerHTML = '';
+  }
+  
+  // Arrêter le timer si actif
+  if (gameState.timerInterval) {
+    clearInterval(gameState.timerInterval);
+  }
+}
+
+// Initialiser le jeu
+function initGame() {
+  gameState = {
+    score: 0,
+    target: 5,
+    timer: 60,
+    timerInterval: null,
+    isPlaying: false,
+    elements: [],
+    collected: 0,
+    missed: 0
+  };
+  
+  // Réinitialiser l'UI
+  const scoreEl = document.getElementById('game-score');
+  const totalEl = document.getElementById('game-total');
+  const timerEl = document.getElementById('game-timer');
+  const resultDiv = document.getElementById('game-result');
+  const startBtn = document.getElementById('game-start');
+  const restartBtn = document.getElementById('game-restart');
+  
+  if (scoreEl) scoreEl.textContent = '0';
+  if (totalEl) totalEl.textContent = gameState.target;
+  if (timerEl) {
+    timerEl.textContent = gameState.timer;
+    timerEl.classList.remove('warning');
+  }
+  if (resultDiv) resultDiv.style.display = 'none';
+  if (startBtn) startBtn.style.display = 'block';
+  if (restartBtn) restartBtn.style.display = 'none';
+  
+  // Réinitialiser la lettre I
+  const letterI = document.getElementById('letter-i');
+  if (letterI) {
+    letterI.classList.remove('complete');
+    for (let i = 1; i <= 5; i++) {
+      const part = document.getElementById(`part-${i}`);
+      if (part) part.classList.remove('collected');
+    }
+  }
+  
+  // Vider la zone de jeu
+  const gameArea = document.getElementById('game-area');
+  if (gameArea) {
+    gameArea.innerHTML = '';
+  }
+  
+  // Arrêter le timer si actif
+  if (gameState.timerInterval) {
+    clearInterval(gameState.timerInterval);
+  }
+}
+
+// Démarrer le jeu
+function startGame() {
+  if (gameState.isPlaying) return;
+  
+  gameState.isPlaying = true;
+  gameState.score = 0;
+  gameState.collected = 0;
+  gameState.missed = 0;
+  gameState.timer = 60;
+  
+  const startBtn = document.getElementById('game-start');
+  const resultDiv = document.getElementById('game-result');
+  if (startBtn) startBtn.style.display = 'none';
+  if (resultDiv) resultDiv.style.display = 'none';
+  
+  // Démarrer le timer
+  gameState.timerInterval = setInterval(() => {
+    gameState.timer--;
+    const timerEl = document.getElementById('game-timer');
+    if (timerEl) {
+      timerEl.textContent = gameState.timer;
+      
+      if (gameState.timer <= 10) {
+        timerEl.classList.add('warning');
+      }
+      
+      if (gameState.timer <= 0) {
+        endGame();
+      }
+    }
+  }, 1000);
+  
+  // Générer des éléments qui tombent
+  generateFallingElement();
+  const elementInterval = setInterval(() => {
+    if (!gameState.isPlaying) {
+      clearInterval(elementInterval);
+      return;
+    }
+    generateFallingElement();
+  }, 1500); // Nouvel élément toutes les 1.5 secondes
+}
+
+// Générer un élément qui tombe
+function generateFallingElement() {
+  if (!gameState.isPlaying) return;
+  
+  const gameArea = document.getElementById('game-area');
+  if (!gameArea) return;
+  
+  // Choisir un élément aléatoire
+  const element = gameElements[Math.floor(Math.random() * gameElements.length)];
+  
+  // Créer l'élément
+  const fallingEl = document.createElement('div');
+  fallingEl.className = `falling-element ${element.type}`;
+  fallingEl.textContent = `${element.icon} ${element.text}`;
+  fallingEl.dataset.type = element.type;
+  
+  // Position horizontale aléatoire
+  const maxLeft = gameArea.offsetWidth - 150;
+  const left = Math.random() * maxLeft;
+  fallingEl.style.left = left + 'px';
+  fallingEl.style.setProperty('--current-y', '0px');
+  
+  // Ajouter au DOM
+  gameArea.appendChild(fallingEl);
+  
+  // Animation de chute
+  let position = 0;
+  const fallSpeed = 2 + Math.random() * 2; // Vitesse variable
+  
+  const fallInterval = setInterval(() => {
+    if (!gameState.isPlaying || fallingEl.classList.contains('collected') || fallingEl.classList.contains('missed')) {
+      clearInterval(fallInterval);
+      return;
+    }
+    
+    position += fallSpeed;
+    fallingEl.style.top = position + 'px';
+    fallingEl.style.setProperty('--current-y', position + 'px');
+    
+    // Si l'élément atteint le bas
+    if (position >= gameArea.offsetHeight - 50) {
+      clearInterval(fallInterval);
+      if (element.type === 'inclusive') {
+        // Manqué un élément inclusif = pénalité
+        gameState.missed++;
+        showFeedback('❌ Manqué !', 'incorrect');
+      }
+      fallingEl.classList.add('missed');
+      setTimeout(() => fallingEl.remove(), 500);
+    }
+  }, 16); // ~60fps
+  
+  // Gestion du clic
+  fallingEl.addEventListener('click', () => {
+    if (fallingEl.classList.contains('collected') || fallingEl.classList.contains('missed')) return;
+    
+    clearInterval(fallInterval);
+    fallingEl.classList.add('collected');
+    
+    if (element.type === 'inclusive') {
+      // Bon élément collecté !
+      gameState.collected++;
+      gameState.score++;
+      updateScore();
+      collectPart();
+      showFeedback('✅ +1', 'correct');
+      
+      // Vérifier si on a gagné
+      if (gameState.collected >= gameState.target) {
+        setTimeout(() => {
+          endGame(true);
+        }, 1000);
+      }
+    } else {
+      // Mauvais élément cliqué = pénalité
+      gameState.score = Math.max(0, gameState.score - 1);
+      updateScore();
+      showFeedback('❌ -1', 'incorrect');
+    }
+    
+    // Animation vers la lettre I
+    const letterI = document.getElementById('letter-i');
+    if (letterI) {
+      const rect = letterI.getBoundingClientRect();
+      const gameAreaRect = gameArea.getBoundingClientRect();
+      const targetX = rect.left + rect.width / 2 - gameAreaRect.left;
+      const targetY = rect.top + rect.height / 2 - gameAreaRect.top;
+      
+      fallingEl.style.setProperty('--target-x', targetX + 'px');
+      fallingEl.style.setProperty('--target-y', targetY + 'px');
+    }
+    
+    setTimeout(() => fallingEl.remove(), 500);
+  });
+  
+  gameState.elements.push(fallingEl);
+}
+
+// Collecter une partie de la lettre I
+function collectPart() {
+  const partNumber = gameState.collected;
+  if (partNumber <= 5) {
+    const part = document.getElementById(`part-${partNumber}`);
+    if (part) {
+      part.classList.add('collected');
+    }
+  }
+  
+  // Si toutes les parties sont collectées
+  if (gameState.collected >= gameState.target) {
+    const letterI = document.getElementById('letter-i');
+    if (letterI) {
+      letterI.classList.add('complete');
+    }
+  }
+}
+
+// Afficher un feedback
+function showFeedback(text, type) {
+  const feedback = document.createElement('div');
+  feedback.className = `game-feedback-popup ${type}`;
+  feedback.textContent = text;
+  document.body.appendChild(feedback);
+  
+  setTimeout(() => {
+    feedback.style.animation = 'popup 0.3s ease reverse';
+    setTimeout(() => feedback.remove(), 300);
+  }, 800);
+}
+
+// Mettre à jour le score
+function updateScore() {
+  const scoreEl = document.getElementById('game-score');
+  if (scoreEl) {
+    scoreEl.textContent = gameState.collected;
+  }
+}
+
+// Terminer le jeu
+function endGame(won = false) {
+  gameState.isPlaying = false;
+  
+  if (gameState.timerInterval) {
+    clearInterval(gameState.timerInterval);
+  }
+  
+  // Arrêter tous les éléments
+  document.querySelectorAll('.falling-element').forEach(el => {
+    el.style.animationPlayState = 'paused';
+  });
+  
+  const resultDiv = document.getElementById('game-result');
+  const resultTitle = document.getElementById('result-title');
+  const resultMessage = document.getElementById('result-message');
+  const resultBadge = document.getElementById('result-badge');
+  const restartBtn = document.getElementById('game-restart');
+  
+  if (!resultDiv || !resultTitle || !resultMessage || !resultBadge) return;
+  
+  if (won || gameState.collected >= gameState.target) {
+    resultTitle.textContent = '🎉 Félicitations !';
+    resultMessage.innerHTML = `
+      <p>Tu as construit le <strong>I</strong> de NIRD !</p>
+      <p>Éléments inclusifs collectés : <strong>${gameState.collected}/${gameState.target}</strong></p>
+      <p>Le numérique <strong>Inclusif</strong>, c'est ça ! 🌿</p>
+    `;
+    resultBadge.textContent = '🏆 Expert en Inclusion Numérique';
+    resultBadge.style.background = 'linear-gradient(135deg, var(--color-success), var(--color-primary))';
+  } else {
+    resultTitle.textContent = '⏱️ Temps écoulé !';
+    resultMessage.innerHTML = `
+      <p>Tu as collecté <strong>${gameState.collected}/${gameState.target}</strong> éléments inclusifs.</p>
+      <p>Continue pour compléter le I de NIRD ! 💪</p>
+    `;
+    resultBadge.textContent = '🔄 Essaie encore';
+    resultBadge.style.background = 'linear-gradient(135deg, var(--color-warning), var(--color-secondary))';
+  }
+  
+  resultDiv.style.display = 'block';
+  if (restartBtn) restartBtn.style.display = 'block';
+}
+
+// Initialiser le jeu au chargement
+document.addEventListener('DOMContentLoaded', function() {
+  const startBtn = document.getElementById('game-start');
+  const restartBtn = document.getElementById('game-restart');
+  
+  if (startBtn) {
+    startBtn.addEventListener('click', startGame);
+  }
+  
+  if (restartBtn) {
+    restartBtn.addEventListener('click', () => {
+      initGame();
+    });
+  }
+  
+  // Initialiser le jeu si la section existe
+  if (document.getElementById('jeu')) {
+    initGame();
+  }
+});
+

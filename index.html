@@ -458,6 +458,71 @@
         </div>
       </section>
 
+      <!-- MINI-JEU N(I)RD -->
+      <section id="jeu" class="section game" aria-labelledby="titre-jeu">
+        <div class="section-header">
+          <h2 id="titre-jeu">🎮 Mini-Jeu : Construis le I de N(I)RD</h2>
+          <p>
+            Le <strong>I</strong> de NIRD signifie <strong>Inclusif</strong>. 
+            Collecte les éléments inclusifs qui tombent pour construire le I et compléter NIRD !
+          </p>
+        </div>
+
+        <div class="game-container">
+          <div class="game-header">
+            <div class="game-score">
+              <span class="score-label">Éléments collectés :</span>
+              <span id="game-score" class="score-value">0</span>
+              <span class="score-separator">/</span>
+              <span id="game-total" class="score-total">5</span>
+            </div>
+            <div class="game-timer">
+              <span class="timer-label">⏱️ Temps :</span>
+              <span id="game-timer" class="timer-value">60</span>s
+            </div>
+          </div>
+
+          <div class="game-word">
+            <div class="word-letter" data-letter="N">N</div>
+            <div class="word-letter" data-letter="I" id="letter-i">
+              <div class="letter-parts">
+                <div class="letter-part" id="part-1"></div>
+                <div class="letter-part" id="part-2"></div>
+                <div class="letter-part" id="part-3"></div>
+                <div class="letter-part" id="part-4"></div>
+                <div class="letter-part" id="part-5"></div>
+              </div>
+            </div>
+            <div class="word-letter" data-letter="R">R</div>
+            <div class="word-letter" data-letter="D">D</div>
+          </div>
+
+          <div class="game-instructions">
+            <p>👆 Clique sur les éléments <strong>inclusifs</strong> qui tombent !</p>
+            <p>❌ Évite les éléments <strong>non inclusifs</strong> !</p>
+          </div>
+
+          <div class="game-area" id="game-area">
+            <!-- Les éléments tomberont ici -->
+          </div>
+
+          <div class="game-actions">
+            <button id="game-start" class="btn primary">
+              🚀 Commencer le jeu
+            </button>
+            <button id="game-restart" class="btn ghost" style="display: none;">
+              🔄 Rejouer
+            </button>
+          </div>
+
+          <div class="game-result" id="game-result" style="display: none;">
+            <h3 id="result-title">🎉 Félicitations !</h3>
+            <p id="result-message"></p>
+            <div class="result-badge-game" id="result-badge"></div>
+          </div>
+        </div>
+      </section>
+
       <!-- SECTION SÉCURITÉ ET FAILLE -->
       <section id="securite" class="section security" aria-labelledby="titre-securite">
         <div class="section-header">
