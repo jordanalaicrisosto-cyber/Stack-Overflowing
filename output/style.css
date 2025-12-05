@@ -79,12 +79,11 @@ html, body {
 
 /* ========== CONTENT AREA ========== */
 section {
+    box-sizing: border-box;
     width: 100vw;
-    min-height: 100vh;
     display: none;
     opacity: 0;
     transition: opacity 0.8s ease;
-    padding: 40px;
 }
 
 section.active {

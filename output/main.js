@@ -1,17 +1,24 @@
 let currentOpen = null;
+let nomPageActive = null;
 
-function openPage(element) {
+function openPage(element, nom = null) {
     if (currentOpen != null) {
         currentOpen.classList.remove("active");
     }
 
     if (element == null) {
+        nomPageActive = null;
         return;
     }
 
     currentOpen = element;
     currentOpen.classList.add("active");
     currentOpen.scrollIntoView({ behavior: "smooth", block: "start" });
+    nomPageActive = nom;
+}
+
+function getActivePageName() {
+    return nomPageActive;
 }
 
 function createLandingButtons() {
@@ -32,7 +39,7 @@ function createLandingButtons() {
                 return;
             }
             
-            openPage(pageElement);
+            openPage(pageElement, targetPage);
         });
     });
 }
