@@ -16,9 +16,8 @@ function buildCookiePopup() {
 
     const declineButton = popup.querySelector('.customize');
     declineButton.addEventListener('click', () => {
+        window.scrollTo(0, 0);
         alert("Non ! Vous ne pouvez pas refuser les cookies sur ce site !");
-        // Scroll up
-        window.scrollTo(0, 0);zieruhfuighiue
         window.location.reload();
     });
 
@@ -44,30 +43,30 @@ function buildCookiePopup() {
             declineButton.style.backgroundColor = '#ffffff';
         }
 
-        const distanceDeplace = 300;
+        const distanceDeplace = 100;
         if (distance < distanceDeplace) {
-            // Make the button literally run away based on the cursor position and the screen borders
-                        // Decide direction based on which half of the screen the cursor is in
-                        const directionX = (mouseX > window.innerWidth / 2) ? -1 : 1; // if cursor on right -> move left, else move right
-                        const directionY = (mouseY > window.innerHeight / 2) ? -1 : 1; // if cursor on bottom -> move up, else move down
+            // On fait s'échapper le boutton
+            const directionX = (mouseX > window.innerWidth / 2) ? -1 : 1; // Si le curseur est à gauche, on part à droite et inversement
+            const directionY = (mouseY > window.innerHeight / 2) ? -1 : 1; // Même chose pour le haut et la bas
 
-                        // Strength scales with proximity (closer => stronger)
-                        const strength = Math.max(0, (distanceDeplace - distance) / distanceDeplace); // 0..1
+            const strength = Math.max(0, (distanceDeplace - distance) / distanceDeplace); // 0 à 1
+            const moveX = directionX * strength * 0.5 * distanceDeplace;
+            const moveY = directionY * strength * 0.5 * distanceDeplace;
 
-                        // Compute movement amounts (tweak multiplier to taste)
-                        const moveX = directionX * strength * 0.5 * distanceDeplace;
-                        const moveY = directionY * strength * 0.5 * distanceDeplace;
+            let newLeft = rect.left + moveX;
+            let newTop = rect.top + moveY;
+            newLeft = Math.max(0, Math.min(window.innerWidth - rect.width, newLeft));
+            newTop = Math.max(0, Math.min(window.innerHeight - rect.height, newTop));
 
-                        let newLeft = rect.left + moveX;
-                        let newTop = rect.top + moveY;
+            // De façon occasionnelle, on déplace le bouton en un endroit aléatoire
+            if (Math.random() < 0.01) {
+                newLeft = Math.random() * (window.innerWidth - rect.width);
+                newTop = Math.random() * (window.innerHeight - rect.height);
+            }
 
-                        // Ensure the button stays within the viewport
-                        newLeft = Math.max(0, Math.min(window.innerWidth - rect.width, newLeft));
-                        newTop = Math.max(0, Math.min(window.innerHeight - rect.height, newTop));
-
-                        declineButton.style.position = 'fixed';
-                        declineButton.style.left = newLeft + 'px';
-                        declineButton.style.top = newTop + 'px';
+            declineButton.style.position = 'fixed';
+            declineButton.style.left = newLeft + 'px';
+            declineButton.style.top = newTop + 'px';
         }
     });
 }

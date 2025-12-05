@@ -59,3 +59,18 @@
     color: black;
     border: 1px solid #ccc;
 }
+
+.responsabilite-content {
+    max-width: 800px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    grid-template-rows: 1fr;
+}
+
+@media (max-width: 768px) {
+    .responsabilite-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+    }
+}
