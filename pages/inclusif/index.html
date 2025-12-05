@@ -1,16 +1,128 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Inclusif</title>
+  <meta charset="UTF-8" />
+  <title>Quiz avec réponses immédiates</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 2em auto; }
+    h1 { text-align: center; }
+    #quiz { margin-bottom: 1em; }
+    label { cursor: pointer; display: block; margin-bottom: 0.3em; }
+    button { padding: 0.5em 1em; font-size: 1em; }
+    #feedback { font-weight: bold; margin-top: 1em; color: green; }
+  </style>
 </head>
 <body>
-  <h1>Bienvenue au quiz du NIRD !</h1>
+
+  <h1>Quiz : une question à la fois avec réponse</h1>
 
   <div id="quiz"></div>
-  <a href="question1.html">
-  <button>Commencer le quiz</button>
-</a>
-  <p id="resultat"></p>
+  <button id="valider">Valider ma réponse</button>
+  <p id="feedback"></p>
+
+  <script>
+    const questions = [
+      {
+        question: "Quelle est la capitale de la France ?",
+        reponses: ["Lyon", "Marseille", "Paris", "Toulouse"],
+        correcte: 2
+      },
+      {
+        question: "Quel est l'élément chimique avec le symbole 'O' ?",
+        reponses: ["Or", "Oxygène", "Osmium", "Oganesson"],
+        correcte: 1
+      },
+      {
+        question: "Combien de continents y a-t-il sur Terre ?",
+        reponses: ["5", "6", "7", "8"],
+        correcte: 2
+      },
+      {
+        question: "Qui a écrit 'Les Misérables' ?",
+        reponses: ["Victor Hugo", "Émile Zola", "Albert Camus", "Gustave Flaubert"],
+        correcte: 0
+      },
+      {
+        question: "Quelle planète est la plus proche du Soleil ?",
+        reponses: ["Vénus", "Mercure", "Mars", "Jupiter"],
+        correcte: 1
+      },
+      {
+        question: "Quelle langue est principalement parlée au Brésil ?",
+        reponses: ["Espagnol", "Portugais", "Français", "Anglais"],
+        correcte: 1
+      },
+      {
+        question: "En quelle année a eu lieu la Révolution française ?",
+        reponses: ["1789", "1776", "1815", "1804"],
+        correcte: 0
+      }
+    ];
+
+    const quizDiv = document.getElementById("quiz");
+    const validerBtn = document.getElementById("valider");
+    const feedbackP = document.getElementById("feedback");
+
+    let currentQuestion = 0;
+    let waitingForNext = false; // Indique si on attend de passer à la question suivante
+
+    function afficherQuestion(index) {
+      const q = questions[index];
+      quizDiv.innerHTML = `<h3>Question ${index + 1} / ${questions.length}</h3><p>${q.question}</p>`;
+      q.reponses.forEach((rep, i) => {
+        quizDiv.innerHTML += `
+          <label>
+            <input type="radio" name="reponse" value="${i}">
+            ${rep}
+          </label>
+        `;
+      });
+      feedbackP.textContent = "";
+      validerBtn.textContent = "Valider ma réponse";
+      waitingForNext = false;
+    }
+
+    validerBtn.addEventListener("click", () => {
+      if (!waitingForNext) {
+        // On est en mode validation de réponse
+        const choix = document.querySelector('input[name="reponse"]:checked');
+        if (!choix) {
+          alert("Veuillez sélectionner une réponse !");
+          return;
+        }
+        const reponseChoisie = Number(choix.value);
+        const q = questions[currentQuestion];
+        const bonneReponse = q.reponses[q.correcte];
+
+        if (reponseChoisie === q.correcte) {
+          feedbackP.textContent = `Bonne réponse : ${bonneReponse}`;
+          feedbackP.style.color = "green";
+        } else {
+          feedbackP.textContent = `Mauvaise réponse. La bonne réponse était : ${bonneReponse}`;
+          feedbackP.style.color = "red";
+        }
+
+        // Désactiver les radios pour empêcher de changer la réponse
+        document.querySelectorAll('input[name="reponse"]').forEach(input => input.disabled = true);
+
+        validerBtn.textContent = currentQuestion === questions.length - 1 ? "Terminer" : "Question suivante";
+        waitingForNext = true;
+      } else {
+        // On est en mode passage à la question suivante
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+          afficherQuestion(currentQuestion);
+        } else {
+          quizDiv.innerHTML = "<h3>Quiz terminé !</h3><p>Merci d'avoir participé.</p>";
+          feedbackP.textContent = "";
+          validerBtn.style.display = "none";
+        }
+      }
+    });
+
+    // Affiche la première question au chargement
+    afficherQuestion(currentQuestion);
+  </script>
+
 </body>
 </html>
