@@ -87,7 +87,9 @@ section.active {
 }
 
 #smiley {
-    image-rendering: pixelated;
-    width: 200px;
-    align-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 200px;
+  image-rendering: pixelated;
 }
