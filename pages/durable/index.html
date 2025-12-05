@@ -36,7 +36,7 @@
 
 <div class="page-durable">
   <div class="scene">
-    <img src="/durable/pingouin1.png" id="tux" class="character">
+    <img src="durable/pingouin1.png" id="tux" class="character">
     <div class="bulle" id="bulle">Hey !<br />Appuie sur la touche espace pour intéragir avec moi...</div>
   </div>
 </div>
@@ -74,9 +74,9 @@
       const nextChar = resteAAfficher.charAt(0);
       bulle.textContent += nextChar;
       if (Math.random()<0.2) {
-        if (tux.src.split("/durable/")[1]=="pingouin2.png") {
-          tux.src="/durable/pingouin1.png"
-        } else tux.src="/durable/pingouin2.png"
+        if (tux.src.split("durable/")[1]=="pingouin2.png") {
+          tux.src="durable/pingouin1.png"
+        } else tux.src="durable/pingouin2.png"
       }
       resteAAfficher = resteAAfficher.slice(1);
     }, 20);

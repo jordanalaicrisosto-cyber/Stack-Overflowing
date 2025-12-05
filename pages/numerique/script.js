@@ -1,4 +1,4 @@
-const questions = [
+const questionsChatbot = [
   {
     text: "Ton PC est vieux et lent, que fais-tu pour prolonger sa vie ?",
     choices: [
@@ -46,7 +46,7 @@ const questions = [
 ];
 
 let currentQuestion = 0;
-let score = 0;
+let scoreChatbot = 0;
 
 const messagesDiv = document.getElementById("messages");
 const choicesDiv = document.getElementById("choices");
@@ -75,24 +75,24 @@ function fakeAIResponse(choiceText, good) {
 }
 
 function updateProgress() {
-  progressBar.style.width = `${(currentQuestion / questions.length) * 100}%`;
+  progressBar.style.width = `${(currentQuestion / questionsChatbot.length) * 100}%`;
 }
 
 function showQuestion() {
   choicesDiv.innerHTML = "";
   updateProgress();
-  if (currentQuestion >= questions.length) {
+  if (currentQuestion >= questionsChatbot.length) {
     addMessage(
-      `🎉 Quiz terminé ! Score final : ${score} / ${questions.length}`,
+      `🎉 Quiz terminé ! Score final : ${scoreChatbot} / ${questionsChatbot.length}`,
       "bot"
     );
     return;
   }
 
-  const q = questions[currentQuestion];
+  const q = questionsChatbot[currentQuestion];
   addMessage(q.text, "bot");
 
-  q.choices.forEach((choice) => {
+  q.choices.sort(() => Math.random() - 0.5).forEach((choice) => {
     const btn = document.createElement("button");
     btn.innerText = choice.text;
     btn.onclick = () => handleChoice(choice);
@@ -108,8 +108,8 @@ async function handleChoice(choice) {
   addMessage(comment, "bot");
 
   if (choice.good) {
-    score++;
-    scoreSpan.innerText = score;
+    scoreChatbot++;
+    scoreSpan.innerText = scoreChatbot;
     currentQuestion++;
   } else {
     // Pas de passage automatique, l'utilisateur revoit la question
