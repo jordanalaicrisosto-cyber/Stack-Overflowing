@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Inclusif</title>
+</head>
+<body>
+  <h1>Inclusif : le quiz !</h1>
+
+  <div id="quiz"></div>
+  <button id="valider">Je suis sûr de moi</button>
+  <p id="resultat"></p>
+
+  <script>
+    const questions = [
+      {
+        question: "Qui a crée le premier algorithme informatique executable par une machine ?",
+        reponses: ["Ada Lovelace", "Alan Turing", ],
+        correcte: 1
+      },
+      {
+        question: "Qui a crée le premier langage de programmation ?",
+        reponses: ["Grace Hopper", "Dennis Ritchie", "Ken Thompson", "James Gosling"],
+        correcte: 1
+      },
+      {
+        question: "Qui a crée le premier système de télécommunications ?",
+        reponses: ["Hedy Lamarr", "Claude Shannon",, "Tim Berners"],
+        correcte: 1
+      },
+      {
+        question: "Qui a participé à Apollo 11 parmi ces propositions : ",
+        reponses: ["Geoffrey Hinton", "Andrew Ng", "Katherine Johnson",],
+        correcte: 1
+      },
+      {
+        question: "Qui a crée la première calculatrice infomatique ?",
+        reponses: ["Hedy Lamarr", ,"Geoffrey Hinton", "Alice Recoque"],
+        correcte: 1
+      },
+      {
+        question: "Qui a crée les boîtes noires ?",
+        reponses: ["Ada Lovelace", "Stéphanie Shirley", "John von Neumann"],
+        correcte: 1
+      },
+      {
+        question: "Il y a une deuxième personne qui a participé au projet Apollo 11, qui est-ce ?",
+        reponses: ["Ada Lovelace", "Margaret Hamilton"],
+        correcte: 1
+      }
+    ];
+
+    const quizDiv = document.getElementById("quiz");
+
+    questions.forEach((q, index) => {
+      const container = document.createElement("div");
+      container.innerHTML = `<h3>${q.question}</h3>`;
+      
+      q.reponses.forEach((rep, i) => {
+        container.innerHTML += `
+          <label>
+            <input type="radio" name="q${index}" value="${i}">
+            ${rep}
+          </label><br>
+        `;
+      });
+
+      quizDiv.appendChild(container);
+    });
+
+    document.getElementById("valider").onclick = () => {
+      let score = 0;
+
+      questions.forEach((q, index) => {
+        const choix = document.querySelector(`input[name="q${index}"]:checked`);
+        if (choix && Number(choix.value) === q.correcte) {
+          score++;
+        }
+      });
+
+      document.getElementById("resultat").textContent =
+        `Score : ${score} / ${questions.length}`;
+    };
+  </script>
+</body>
+</html>
