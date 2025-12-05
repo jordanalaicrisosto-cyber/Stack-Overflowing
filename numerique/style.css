@@ -8,19 +8,11 @@
   --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-body {
-  margin: 0;
-  font-family: var(--font);
-  background-color: var(--color-bg);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
 #chat-container {
+  height: 90vh;
   width: 90%;
   max-width: 600px;
+  margin: 0px auto;
   background: white;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
