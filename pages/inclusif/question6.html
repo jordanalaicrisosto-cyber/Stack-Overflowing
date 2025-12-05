@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Inclusif</title>
+</head>
+<body>
+  <h1>Inclusif : le quiz !</h1>
+
+  <div id="quiz"></div>
+
+<p id="message" style="display:none;">Stephanie Shirley</p>
+
+<a href="question7.html">
+    <button id="question7" style="display:none;">Aller à la question 7</button>
+</a>
+
+<button id="reponse" onclick = "afficherTexteEtBouton()">Réponse</button>
+
+<script>
+  function afficherTexteEtBouton() {
+    document.getElementById("message").style.display = "block";
+    document.getElementById("reponse").style.display = "none";
+    document.getElementById("question7").style.display = "inline-block";
+  }
+</script>
+
+  <p id="resultat"></p>
+
+  <script>
+    const questions = [
+      {
+        question: "Qui a crée les boîtes noires ?",
+        reponses: ["Ada Lovelace", "Stéphanie Shirley", "John von Neumann"],
+        correcte: 1
+      }
+    ];
+
+    const quizDiv = document.getElementById("quiz");
+
+    questions.forEach((q, index) => {
+      const container = document.createElement("div");
+      container.innerHTML = `<h3>${q.question}</h3>`;
+      
+      q.reponses.forEach((rep, i) => {
+        container.innerHTML += `
+          <label>
+            <input type="radio" name="q${index}" value="${i}">
+            ${rep}
+          </label><br>
+        `;
+      });
+
+      quizDiv.appendChild(container);
+    });
+
+    document.getElementById("valider").onclick = () => {
+      let score = 0;
+
+      questions.forEach((q, index) => {
+        const choix = document.querySelector(`input[name="q${index}"]:checked`);
+        if (choix && Number(choix.value) === q.correcte) {
+          score++;
+        }
+      });
+
+      document.getElementById("resultat").textContent =
+        `Score : ${score} / ${questions.length}`;
+    };
+  </script>
+</body>
+</html>
