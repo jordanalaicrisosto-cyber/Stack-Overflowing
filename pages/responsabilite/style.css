@@ -60,12 +60,21 @@
     border: 1px solid #ccc;
 }
 
+code {
+    background-color: #333333;
+    border-radius: 10px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: "Courier New", Courier, monospace;
+}
+
 .responsabilite-content {
     max-width: 800px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 200px;
     grid-template-rows: 1fr;
+    gap: 20px;
 }
 
 @media (max-width: 768px) {
@@ -73,4 +82,50 @@
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
     }
+}
+
+.publicites > div {
+    width: 200px;
+    height: 300px;
+    background: linear-gradient(45deg, #ff00ff, #00e6ff, #ffff00);
+    background-size: 600% 600%;
+    animation: rainbow 3s ease infinite;
+    color: #000;
+    font-family: sans-serif;
+    padding: 10px;
+    text-align: centre;
+    border: 3px dashed #000;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+@keyframes rainbow {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+.publicites .title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.publicites .blink {
+    animation: blink 0.7s step-start infinite;
+}
+
+@keyframes blink {
+    50% {opacity: 0;}
+}
+
+.publicites .button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
 }

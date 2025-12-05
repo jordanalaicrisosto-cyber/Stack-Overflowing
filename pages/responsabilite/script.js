@@ -71,8 +71,21 @@ function buildCookiePopup() {
     });
 }
 
+function buildAdWindow() {
+    const bouttonVaisselle = document.getElementById("button-ad-vaiselle");
+    bouttonVaisselle.addEventListener("click", () => {
+        alert("Félicitations ! Vous venez de contracter une maladie rare et incurable : la vaissellophilie aiguë. Vos symptômes incluent une obsession compulsive pour la vaisselle et une incapacité à résister à l'envie de faire la vaisselle en toutes circonstances. Consultez immédiatement un spécialiste en vaisselle pour un traitement approprié.");
+    });
+
+    const bouttonBiscuits = document.getElementById("button-ad-biscuits");
+    bouttonBiscuits.addEventListener("click", () => {
+        alert("Alerte santé : La consommation excessive de biscuits peut entraîner une dépendance sucrée sévère, des crises de gourmandise incontrôlables et une obsession pour les boîtes de biscuits. Les symptômes incluent également des rêves récurrents de biscuits géants et une incapacité à résister à l'appel du goûter. Consultez un spécialiste en nutrition sucrée pour un traitement adapté.");
+    });
+}
+
 function main() {
     buildCookiePopup();
+    buildAdWindow();
 }
 
 main();
