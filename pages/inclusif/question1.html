@@ -8,18 +8,20 @@
   <h1>Inclusif : le quiz !</h1>
 
   <div id="quiz"></div>
-<button onclick="afficherTexteEtBouton()">Réponse</button>
 
 <p id="message" style="display:none;">Ada Lovelace</p>
 
 <a href="question2.html">
-  <button>Commencer le quiz</button>
+    <button id="question2" style="display:none;">Aller à la question 2</button>
 </a>
+
+<button id="reponse" onclick = "afficherTexteEtBouton()">Réponse</button>
 
 <script>
   function afficherTexteEtBouton() {
     document.getElementById("message").style.display = "block";
-    document.getElementById("Question2").style.display = "inline-block";
+    document.getElementById("reponse").style.display = "none";
+    document.getElementById("question2").style.display = "inline-block";
   }
 </script>
 
@@ -29,7 +31,7 @@
     const questions = [
       {
         question: "Qui a crée le premier algorithme informatique executable par une machine ?",
-        reponses: ["Ada Lovelace", "Alan Turing", ],
+        reponses: ["Ada Lovelace", "Alan Turing"],
         correcte: 1
       }
     ];
