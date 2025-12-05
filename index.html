@@ -192,19 +192,151 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Inclusif</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 2em auto; }
+    h1 { text-align: center; }
+    #quiz { margin-bottom: 1em; }
+    label { cursor: pointer; display: block; margin-bottom: 0.3em; }
+    button { padding: 0.5em 1em; font-size: 1em; }
+    #resultat {
+      font-weight: bold;
+      font-size: 1.1em;
+      margin-top: 1em;
+      white-space: pre-line;
+      color: green;
+    }
+    #resultat.mauvais {
+      color: red;
+    }
+  </style>
 </head>
 <body>
-  <h1>Bienvenue au quiz du NIRD !</h1>
+
+  <h1>Bienvenue au quiz inclusif !</h1>
 
   <div id="quiz"></div>
-  <a href="question1.html">
-  <button>Commencer le quiz</button>
-</a>
-  <p id="resultat"></p>
+  <button id="valider">Valider ma réponse</button>
+  <pre id="resultat"></pre>
+
+  <script>
+    const questions = [
+      {
+        question: "Qui a crée le premier algorithme informatique executable par une machine ?",
+        reponses: ["Ada Lovelace", "Alan Turing"],
+        correcte: 0
+      },
+      {
+        question: "Qui a crée le premier langage de programmation ?",
+        reponses: ["Grace Hopper", "Dennis Ritchie", "Ken Thompson", "James Gosling"],
+        correcte: 0
+      },
+      {
+        question: "Qui a crée le premier système de télécommunications ?",
+        reponses: ["Hedy Lamarr", "Claude Shannon", "Tim Berners"],
+        correcte: 0
+      },
+      {
+        question: "Qui a participé à Apollo 11 parmi ces propositions : ",
+        reponses: ["Geoffrey Hinton", "Andrew Ng", "Katherine Johnson"],
+        correcte: 2
+      },
+      {
+        question: "Qui a crée la première calculatrice infomatique ?",
+        reponses: ["Hedy Lamarr", "Geoffrey Hinton", "Alice Recoque"],
+        correcte: 2
+      },
+      {
+        question: "Qui a crée les boîtes noires ?",
+        reponses: ["Ada Lovelace", "Stéphanie Shirley", "John von Neumann"],
+        correcte: 1
+      },
+      {
+        question: "Il y a une deuxième personne qui a participé au projet Apollo 11, qui est-ce ?",
+        reponses: ["Ada Lovelace", "Margaret Hamilton"],
+        correcte: 1
+      }
+    ];
+
+    const quizDiv = document.getElementById("quiz");
+    const validerBtn = document.getElementById("valider");
+    const resultatPre = document.getElementById("resultat");
+
+    let currentQuestion = 0;
+    let waitingForNext = false;
+
+    function afficherQuestion(index) {
+      const q = questions[index];
+      quizDiv.innerHTML = `<h3>Question ${index + 1} / ${questions.length}</h3><p>${q.question}</p>`;
+      q.reponses.forEach((rep, i) => {
+        quizDiv.innerHTML += `
+          <label>
+            <input type="radio" name="reponse" value="${i}">
+            ${rep}
+          </label>
+        `;
+      });
+      resultatPre.textContent = "";
+      resultatPre.classList.remove("mauvais");
+      validerBtn.textContent = "Valider ma réponse";
+      waitingForNext = false;
+    }
+
+    validerBtn.addEventListener("click", () => {
+      if (!waitingForNext) {
+        // Validation de la réponse
+        const choix = document.querySelector('input[name="reponse"]:checked');
+        if (!choix) {
+          alert("Veuillez sélectionner une réponse !");
+          return;
+        }
+        const reponseChoisie = Number(choix.value);
+        const q = questions[currentQuestion];
+        const bonneReponse = q.reponses[q.correcte];
+
+        if (reponseChoisie === q.correcte) {
+          resultatPre.textContent = `Bonne réponse : ${bonneReponse}`;
+          resultatPre.classList.remove("mauvais");
+        } else {
+          resultatPre.textContent = `Mauvaise réponse.\nLa bonne réponse était : ${bonneReponse}`;
+          resultatPre.classList.add("mauvais");
+        }
+
+        // Désactive les options pour empêcher changement
+        document.querySelectorAll('input[name="reponse"]').forEach(input => input.disabled = true);
+
+        validerBtn.textContent = currentQuestion === questions.length - 1 ? "Terminer" : "Question suivante";
+        waitingForNext = true;
+      } else {
+        // Passage à la question suivante
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+          afficherQuestion(currentQuestion);
+        } else {
+          // Fin du quiz : affichage du message + bouton source
+          quizDiv.innerHTML = `
+            <h3>Quiz terminé !</h3>
+            <p>Le point commun entre toutes ces réponses ? Ce sont toutes des femmes oubliées de l'informatique !</p>
+            <button id="btnSource">Source</button>
+          `;
+          resultatPre.textContent = "";
+          validerBtn.style.display = "none";
+
+          document.getElementById('btnSource').addEventListener('click', () => {
+            window.open('https://www.cnil.fr/fr/8-femmes-qui-ont-marque-lhistoire-du-numerique', '_blank');
+          });
+        }
+      }
+    });
+
+    // Affiche la première question au chargement
+    afficherQuestion(currentQuestion);
+  </script>
+
 </body>
 </html>
+
 </section>
 <section id="numerique">
 
