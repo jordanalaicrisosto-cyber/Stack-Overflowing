@@ -1,3 +1,102 @@
+<style>
+  .page-durable {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: sans-serif;
+  }
+  .page-durable .scene {
+    position: relative;
+    width: 800px;
+    text-align: center;
+  }
+  .page-durable .character {
+    width: 300px;
+    image-rendering: pixelated;
+    display:block;
+  }
+  .page-durable .bulle {
+    position: absolute;
+    bottom: 180px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    color: black;
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 10px 15px;
+    max-width: 600px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    display: block;
+    text-align: left;
+  }
+</style>
 
+<div class="page-durable">
+  <div class="scene">
+    <img src="/durable/pingouin1.png" id="tux" class="character">
+    <div class="bulle" id="bulle">Hey !<br />Appuie sur la touche espace pour intéragir avec moi...</div>
+  </div>
+</div>
 
-<script src="/durable/script.js"></script>
+<script>
+  const texts = [
+    "Bonjour, je suis Tux un pingouin bien connu dans le monde de l'informatique.",
+    "C'est un monde gouverné par des géants comme Microsoft ou Apple qui cherchent à se faire le plus d'argent possible.",
+    "Le problème c'est qu'avec le monopole du marché ceux-ci se permettent de faire des opérations vicieuses pour forcer leurs utilisateurs à racheter de nouveaux appareils.",
+    "Par exemple Microsoft force des mises à jour de plus grosses qui rendent inutilisables les machines moins puissantes des générations précédentes.",
+    "Apple de leur côté créent un effet de mode autour de leur nouveaux appareils plus récents et à peine plus performants.",
+    "Ces mécanismes font qu'environ un milliard d'ordinateurs et téléphones sont jetés chaque année alors qu'une majorité pourrait être recyclée.",
+    "Ce gaspillage massif a un impact écologique énorme, entre l'extraction des matières premières, la fabrication, le transport et le traitement des déchets.",
+    "Heureusement, il existe des alternatives plus durables comme l'utilisation de systèmes d'exploitation libres comme Linux.",
+    "Linux est léger, personnalisable et peut redonner vie à des machines anciennes.",
+    "En utilisant Linux, on peut prolonger la durée de vie de nos appareils, réduire les déchets électroniques et minimiser notre impact environnemental.",
+    "Alors la prochaine fois que tu envisages de jeter un vieil appareil, pense à Linux ! Ensemble, nous pouvons faire une différence pour notre planète.",
+  ];
+
+  let index = 0;
+  const bulle = document.getElementById('bulle');
+  const tux = document.getElementById('tux');
+  let writing = false;
+
+  function afficherText(text) {
+    let resteAAfficher = text;
+    let intervalId = null;
+
+    intervalId = setInterval(function() {
+      if (resteAAfficher.length == 0 && intervalId != null) {
+        clearInterval(intervalId);
+        writing=false
+        return;
+      }
+      const nextChar = resteAAfficher.charAt(0);
+      bulle.textContent += nextChar;
+      if (Math.random()<0.2) {
+        if (tux.src.substr(tux.src.length-13)=="/durable/pingouin2.png") {
+          tux.src="/durable/pingouin1.png"
+        } else tux.src="/durable/pingouin2.png"
+      }
+      resteAAfficher = resteAAfficher.slice(1);
+    }, 20);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    // Teste si le noeud est visible avant d'interagir
+    if (getActivePageName() != "durable") {
+      return;
+    }
+
+    if (e.code === 'Space' && !writing) {
+      e.preventDefault();
+      bulle.textContent = ""
+      writing = true
+      afficherText(texts[index])
+      index = (index + 1);
+      if (index == texts.length) {
+        window.scrollTo(0, 0)
+      }
+    }
+  });
+</script>

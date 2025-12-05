@@ -22,6 +22,10 @@ function buildCookiePopup() {
     });
 
     window.addEventListener('mousemove', (event) => {
+        if (getActivePageName() != "responsabilite") {
+            return;
+        }
+
         const rect = declineButton.getBoundingClientRect();
         const mouseX = event.clientX;
         const mouseY = event.clientY;
