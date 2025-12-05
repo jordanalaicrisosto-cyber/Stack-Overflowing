@@ -24,7 +24,7 @@
     transform: translateX(-50%);
     background-color: white;
     color: black;
-    border: 2px solid #333;
+    border: 2px solid white;
     border-radius: 10px;
     padding: 10px 15px;
     max-width: 600px;
@@ -43,7 +43,7 @@
 
 <script>
   const texts = [
-    "Bonjour, je suis Tux un pingouin bien connu dans le monde de l'informatique.",
+    "Je suis Tux, un pingouin bien connu dans le monde de l'informatique!",
     "C'est un monde gouverné par des géants comme Microsoft ou Apple qui cherchent à se faire le plus d'argent possible.",
     "Le problème c'est qu'avec le monopole du marché ceux-ci se permettent de faire des opérations vicieuses pour forcer leurs utilisateurs à racheter de nouveaux appareils.",
     "Par exemple Microsoft force des mises à jour de plus grosses qui rendent inutilisables les machines moins puissantes des générations précédentes.",
@@ -74,7 +74,7 @@
       const nextChar = resteAAfficher.charAt(0);
       bulle.textContent += nextChar;
       if (Math.random()<0.2) {
-        if (tux.src.substr(tux.src.length-13)=="/durable/pingouin2.png") {
+        if (tux.src.split("/durable/")[1]=="pingouin2.png") {
           tux.src="/durable/pingouin1.png"
         } else tux.src="/durable/pingouin2.png"
       }
@@ -94,7 +94,7 @@
       writing = true
       afficherText(texts[index])
       index = (index + 1);
-      if (index == texts.length) {
+      if (index == texts.length+1) {
         window.scrollTo(0, 0)
       }
     }
