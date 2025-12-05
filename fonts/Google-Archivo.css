@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Google Archivo';
+    src: url('Google-Archivo.eot');
+    src: url('Google-Archivo.eot?#iefix') format('embedded-opentype'),
+        url('Google-Archivo.woff2') format('woff2'),
+        url('Google-Archivo.woff') format('woff'),
+        url('Google-Archivo.ttf') format('truetype'),
+        url('Google-Archivo.svg#Archivo-Black') format('svg');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
